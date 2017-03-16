@@ -1,0 +1,10 @@
+
+
+# to build the container:
+docker build -t weviana .
+
+# to run the container:
+docker run -i -p 8010:8010 -v .:/mount/data --tty --interactive weviana
+
+# to check the container
+docker run --tty --interactive weviana /bin/sh
