@@ -29,5 +29,5 @@ WORKDIR /wevia/
 # CMD echo $PYTHONPATH
 CMD python3 -V && pip freeze && \
 	gs -v && tesseract -v && \ 
-	python3 manage.py migrate && python3 manage.py runserver 0:8010
+	python3 manage.py makemigrations && python3 manage.py migrate && python3 manage.py runserver 0:8010
 EXPOSE 8010
