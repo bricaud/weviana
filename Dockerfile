@@ -13,7 +13,7 @@ RUN apt-get update -y &&\
 	apt-get install -y ghostscript tesseract-ocr tesseract-ocr-fra git
 RUN apt-get install -y wget unzip
 # Java 8
-RUN apt-get -t jessie-backports install openjdk-8-jdk
+RUN apt-get -t jessie-backports install -y openjdk-8-jdk
 
 
 RUN wget --no-check-certificate -O $HOME/gremlin.zip http://apache.mirrors.ovh.net/ftp.apache.org/dist/tinkerpop/3.2.4/apache-tinkerpop-gremlin-server-3.2.4-bin.zip
