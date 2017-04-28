@@ -19,7 +19,6 @@ RUN apt-get -t jessie-backports install -y openjdk-8-jdk
 RUN wget --no-check-certificate -O $HOME/gremlin.zip http://apache.mirrors.ovh.net/ftp.apache.org/dist/tinkerpop/3.2.4/apache-tinkerpop-gremlin-server-3.2.4-bin.zip
 RUN unzip $HOME/gremlin.zip -d /
 RUN rm $HOME/gremlin.zip
-RUN cd /apache-tinkerpop-gremlin-server-3.2.4 && bin/gremlin-server.sh conf/gremlin-server-modern.yaml
 
 
 # RUN apt-get install -y git
@@ -41,5 +40,7 @@ WORKDIR /wevia/
 # CMD echo $PYTHONPATH
 CMD python3 -V && pip freeze && \
 	gs -v && tesseract -v && \ 
-	python3 manage.py makemigrations && python3 manage.py migrate && python3 manage.py runserver 0:8010
+	python3 manage.py makemigrations && python3 manage.py migrate && python3 manage.py runserver 0:8010 &&\
+	../apache-tinkerpop-gremlin-server-3.2.4/bin/gremlin-server.sh conf/gremlin-server-modern.yaml
+
 EXPOSE 8010 8182
