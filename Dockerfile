@@ -7,8 +7,20 @@ RUN pip3 --no-cache-dir install --upgrade pip && \
 
 RUN	pip3 --no-cache-dir install tqdm && \
 	pip3 --no-cache-dir install python-louvain
+# For Java 8
+RUN echo 'deb http://deb.debian.org/debian jessie-backports main' > /etc/apt/sources.list.d/jessie-backports.list
 RUN apt-get update -y &&\
 	apt-get install -y ghostscript tesseract-ocr tesseract-ocr-fra git
+RUN apt-get install -y wget unzip
+# Java 8
+RUN apt-get -t jessie-backports install openjdk-8-jdk
+
+
+RUN wget --no-check-certificate -O $HOME/gremlin.zip http://apache.mirrors.ovh.net/ftp.apache.org/dist/tinkerpop/3.2.4/apache-tinkerpop-gremlin-server-3.2.4-bin.zip
+RUN unzip $HOME/gremlin.zip -d /
+RUN rm $HOME/gremlin.zip
+RUN cd /apache-tinkerpop-gremlin-server-3.2.4 && bin/gremlin-server.sh conf/gremlin-server-modern.yaml
+
 
 # RUN apt-get install -y git
 ADD https://api.github.com/repos/bricaud/grevia/git/refs/heads/master version.json
@@ -30,4 +42,4 @@ WORKDIR /wevia/
 CMD python3 -V && pip freeze && \
 	gs -v && tesseract -v && \ 
 	python3 manage.py makemigrations && python3 manage.py migrate && python3 manage.py runserver 0:8010
-EXPOSE 8010
+EXPOSE 8010 8182
