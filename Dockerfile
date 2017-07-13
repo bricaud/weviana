@@ -11,7 +11,6 @@ RUN	pip3 --no-cache-dir install tqdm && \
 
 RUN apt-get update -y &&\
 	apt-get install -y ghostscript tesseract-ocr tesseract-ocr-fra git
-RUN apt-get install -y wget unzip
 
 
 # RUN apt-get install -y git
